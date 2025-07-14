@@ -1,0 +1,35 @@
+.code-editor-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.editor-header h1 {
+  margin: 0;
+  color: #333;
+}
+
+.editor-options select {
+  padding: 8px 12px;
+  margin-left: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: white;
+  font-size: 14px;
+}
+
+.editor-options select:focus {
+  outline: none;
+  border-color: #007bff;
+}

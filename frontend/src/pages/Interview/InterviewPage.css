@@ -1,0 +1,145 @@
+/* src/pages/Interview/InterviewPage.css */
+.interview-container {
+  display: flex;
+  height: calc(100vh - 80px); /* Adjust based on your navbar height */
+  padding: 20px;
+  gap: 20px;
+  background-color: #f5f5f5;
+}
+
+/* Left panel (questions) */
+.question-panel-container {
+  flex: 1;
+  min-width: 400px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right panel (terminal) */
+.terminal-container {
+  flex: 1;
+  min-width: 400px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .interview-container {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .question-panel-container,
+  .terminal-container {
+    min-width: 100%;
+    height: 500px;
+  }
+}
+
+/* Loading state */
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Error state */
+.error-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #dc3545;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Interview controls */
+.interview-controls {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+.control-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.primary-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.primary-button:hover {
+  background-color: #0069d9;
+}
+
+.secondary-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.secondary-button:hover {
+  background-color: #5a6268;
+}
+
+.danger-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.danger-button:hover {
+  background-color: #c82333;
+}
+
+/* Status indicator */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.status-recording {
+  background-color: #dc3545;
+  animation: pulse 1.5s infinite;
+}
+
+.status-active {
+  background-color: #28a745;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
