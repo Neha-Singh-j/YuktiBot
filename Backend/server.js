@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 
 // Debug: Verify environment variables
@@ -10,6 +11,10 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET ? '*****' : 'Not set');
 console.log('NODE_ENV:', process.env.NODE_ENV || 'development');
 
 // Middleware
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Database Connection

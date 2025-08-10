@@ -9,6 +9,7 @@ import ChatBotPage from './pages/ChatBot/ChatBotPage';
 // Component imports
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
+import FloatingChatBot from './components/common/FloatingChatBot';
 // Style imports
 import './index.css';
 
@@ -29,6 +30,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <FloatingChatBot />
       </div>
     </Router>
   );
