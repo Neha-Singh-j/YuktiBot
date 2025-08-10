@@ -15,14 +15,20 @@ app.use(express.json());
 // Database Connection
 const connectDB = async () => {
   try {
+    console.log('Attempting to connect to MongoDB...');
     await mongoose.connect(process.env.MONGODB_URI, {
       retryWrites: true,
       w: 'majority'
     });
     console.log('MongoDB connected successfully!');
+    return true;
   } catch (err) {
     console.error('MongoDB connection failed:', err.message);
-    process.exit(1);
+    console.error('Please check your MongoDB connection string in the .env file');
+    console.error('If using MongoDB Atlas, ensure the username, password, and cluster information are correct');
+    console.error('If using local MongoDB, ensure the MongoDB service is running');
+    console.warn('Continuing without MongoDB connection...');
+    return false;
   }
 };
 
@@ -30,6 +36,7 @@ const connectDB = async () => {
 const authRoutes = require('./routes/auth');
 const interviewRoutes = require('./routes/interview');
 const executeRoutes = require('./routes/execute');
+const botRoutes = require('./routes/bot');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -38,6 +45,7 @@ const errorHandler = require('./middleware/errorHandler');
 app.use('/api/auth', authRoutes);
 app.use('/api/interview', interviewRoutes);
 app.use('/api/execute', executeRoutes);
+app.use('/api/bot', botRoutes);
 
 // Test route
 app.get('/', (req, res) => res.json({ 
@@ -48,8 +56,8 @@ app.get('/', (req, res) => res.json({
 // Error handling middleware (must be last)
 app.use(errorHandler);
 
-// Start server only after DB connection
-connectDB().then(() => {
+// Start server
+const startServer = () => {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
     console.log(`\nServer running on port ${PORT}`);
@@ -62,7 +70,26 @@ connectDB().then(() => {
     console.log('POST   /api/interview/questions (protected)');
     console.log('GET    /api/interview/questions');
     console.log('POST   /api/execute');
+    console.log('POST   /api/bot/chat');
+    console.log('GET    /api/bot/intents');
+    console.log('POST   /api/bot/intents');
+    console.log('POST   /api/bot/reload');
     console.log('----------------------------------');
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   });
-});
+};
+
+// Try to connect to MongoDB, but start server regardless
+connectDB()
+  .then((connected) => {
+    if (connected) {
+      console.log('✅ Server starting with MongoDB connection');
+    } else {
+      console.log('⚠️  Server starting without MongoDB connection');
+    }
+    startServer();
+  })
+  .catch(err => {
+    console.warn('Running without MongoDB connection. Some features may not work.');
+    startServer();
+  });
